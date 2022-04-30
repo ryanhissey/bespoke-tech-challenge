@@ -17,7 +17,7 @@ class ItemsController extends Controller
     public function index(): Response
     {
         return Inertia::render('Items/Index', [
-            'items' => Item::query()->oldest()->limit(10)->get(),
+            'items' => Item::paginate(10)
         ]);
     }
 
