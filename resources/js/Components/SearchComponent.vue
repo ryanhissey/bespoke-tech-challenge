@@ -12,7 +12,7 @@ export default {
             loading: false,
             searchTerms: null,
             results: [],
-            resultsLength: 0
+            occurrences: {}
         };
     },
     watch: {
@@ -31,6 +31,7 @@ export default {
             axios.get('/admin/item/search', { params: { searchTerms: this.searchTerms } })
                 .then((response) => {
                     this.results = response.data;
+                    this.calculateOccurrences();
                     this.success = true;
                     this.loading = false;
                 })
@@ -43,8 +44,19 @@ export default {
         showNoResults: function () {
             return true;
         },
-        resultCount(){
-            return this.resultsLength;
+        calculateOccurrences: function (){
+            let itemOccurrences = this.count(this.results, function (item) {
+                return item.content_type;
+            });
+            return this.occurrences = itemOccurrences;
+        },
+        count:  function (ary, classifier) {
+            classifier = classifier || String;
+            return ary.reduce(function (counter, item) {
+                let p = classifier(item);
+                counter[p] = counter.hasOwnProperty(p) ? counter[p] + 1 : 1;
+                return counter;
+            }, {})
         }
     },
     components: {
@@ -78,9 +90,17 @@ export default {
                     </div>
                 </template>
             </div>
-            <div class ="mt-4">
+            <div class="mt-4">
                 <p><span v-text="results.length"/> Result(s)</p>
             </div>
+            <template v-if="occurrences">
+                <div class="mt-4">
+                    <template v-for="(item, key) in occurrences">
+                        <p class="capitalize bg-black text-white p-4 mt-4">{{ key }} - {{ item }}</p>
+                    </template>
+                </div>
+            </template>
+
         </template>
     </div>
 </template>
