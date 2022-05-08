@@ -76,9 +76,12 @@ class ItemsController extends Controller
         return redirect()->route('admin.items.index')->with('message', 'Successfully Updated Item');
     }
 
-    public function search(Request $request) : JsonResponse
+    public function search(Request $request): JsonResponse
     {
-        $posts=Item::where('name', 'LIKE','%'.$request->searchTerms."%")->get();
+        $posts = Item::where('name', 'LIKE', '%'.$request->searchTerms."%")
+            ->where('active', '=', '1')
+            ->get();
+
         return response()->json($posts);
     }
 
