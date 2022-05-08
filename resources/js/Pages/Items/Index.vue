@@ -6,7 +6,8 @@ import { Link } from '@inertiajs/inertia-vue3';
 import Pagination from "@/Components/Pagination";
 
 const props = defineProps({
-    items: Object
+    items: Object,
+    can: Object
 })
 </script>
 
@@ -56,6 +57,11 @@ const props = defineProps({
                                                     Actions
                                                     <span class="sr-only">Actions</span>
                                                 </th>
+                                                <th scope="col"
+                                                    class="relative py-3.5 pl-3 pr-4 sm:pr-6 text-sm font-semibold text-gray-900 text-right">
+                                                    Delete
+                                                    <span class="sr-only">Delete</span>
+                                                </th>
                                             </tr>
                                             </thead>
                                             <tbody class="divide-y divide-gray-200 bg-white">
@@ -73,6 +79,12 @@ const props = defineProps({
                                                     <Link class="text-indigo-600 hover:text-indigo-900 cursor-pointer"
                                                           :href="route('admin.items.edit', item.id)">
                                                         Edit
+                                                    </Link>
+                                                </td>
+                                                <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                                                    <Link class="text-indigo-600 hover:text-indigo-900 cursor-pointer"
+                                                          :href="route('admin.items.delete', item.id)">
+                                                        Delete
                                                     </Link>
                                                 </td>
                                             </tr>

@@ -37,6 +37,14 @@ Route::get('/admin/items', [ItemsController::class, 'index'])
     ->name('admin.items.index')
     ->middleware(['auth', 'verified', 'can:viewAny,App\Models\Item']);
 
+Route::get('/admin/item/delete/{id}', [ItemsController::class, 'destroy'])
+    ->name('admin.items.delete')
+    ->middleware(['auth', 'verified', 'can:viewAny,App\Models\Item']);
+
+Route::get('/admin/item/search', [ItemsController::class, 'search'])
+    ->name('admin.items.search')
+    ->middleware(['auth', 'verified', 'can:viewAny,App\Models\Item']);
+
 Route::get('/admin/items/create', [ItemsController::class, 'create'])
     ->name('admin.items.create')
     ->middleware(['auth', 'verified', 'can:create,App\Models\Item']);

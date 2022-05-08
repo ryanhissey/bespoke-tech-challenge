@@ -1,6 +1,6 @@
 <script setup>
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue';
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head, Link } from '@inertiajs/inertia-vue3';
 import { defineProps, reactive } from "vue";
 import { Inertia } from "@inertiajs/inertia";
 
@@ -91,6 +91,13 @@ function submit() {
 
                             <div class="mt-3">
                                 <button type="submit" class="w-auto flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Update</button>
+                            </div>
+
+                            <div class="mt-3">
+                                <Link class="text-indigo-600 hover:text-indigo-900 cursor-pointer"
+                                      :href="route('admin.items.index')">
+                                    Cancel
+                                </Link>
                             </div>
 
                         </form>

@@ -1,7 +1,6 @@
 <script setup>
 import { defineProps } from "vue";
 import { Link } from '@inertiajs/inertia-vue3';
-import Pagination from "@/Components/Pagination";
 
 const props = defineProps({
     links: Object
