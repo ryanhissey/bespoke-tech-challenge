@@ -30,18 +30,22 @@ class ItemsController extends Controller
 
     public function store()
     {
+
         $type = match (request()->input('content_type')) {
             'info' => new Info([
                 'header' => request('content.header'),
                 'content' => request('content.content'),
             ]),
             'download' => new Download([
-                'url =' => request('content.url'),
+                'button_text' => request('name'),
+                'url' => request('content.url')
             ]),
             'WEBLINK' => new Weblink([
-                'url =' => request('content.url'),
+                'button_text' => request('name'),
+                'url' => request('content.url')
             ]),
         };
+
         $type->save();
 
         $type->item()->save(new Item(request()->only(['name', 'description'])));
